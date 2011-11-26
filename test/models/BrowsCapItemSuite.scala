@@ -1,3 +1,4 @@
+package models
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
@@ -55,13 +56,13 @@ class BrowseCapItemSuite extends FunSuite with ShouldMatchers with OneInstancePe
                    </browscapitem>
 
   test("browscapitem has name") {
-    val item = models.BrowsCapItem(defaultItemXml)
+    val item = BrowsCapItem(defaultItemXml)
     item.name should not be (None)
     item.name should equal ("DefaultProperties")
   }
 
   test("browscapitem has attributes") {
-    val item = models.BrowsCapItem(defaultItemXml)
+    val item = BrowsCapItem(defaultItemXml)
     val attrs = item.attrs
     attrs should not be (None)
 
@@ -74,8 +75,8 @@ class BrowseCapItemSuite extends FunSuite with ShouldMatchers with OneInstancePe
   }
 
   test("browscapitem with default") {
-    var default = models.BrowsCapItem(defaultItemXml)
-    val ask = models.BrowsCapItem(askItemXml, Some(default))
+    val default = BrowsCapItem(defaultItemXml)
+    val ask = BrowsCapItem(askItemXml, Some(default))
 
     default.attr("Browser") should be ("DefaultProperties")
     ask.attr("Browser") should be ("Ask")

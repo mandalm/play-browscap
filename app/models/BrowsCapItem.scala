@@ -19,22 +19,9 @@ class BrowsCapItem(val name: String, val attrs: Map[String, String], val default
 /** Builds a BrowsCapItem object given a XML node
   */
 object BrowsCapItem {
-
-  def apply(elem: scala.xml.Elem, default: Option[BrowsCapItem] = None) = {
-
-    def extract_name_value(item: scala.xml.Node) = {
-      val n = item.attribute("name").get.head.text
-      try {
-        val v = item.attribute("value").get.head.text
-        (n, v)
-      } catch {
-        case _:NoSuchElementException => (n, "")
-        case e => throw e
-      }
-    }
-
-    val name = elem.attribute("name").get.head.text
-    val attrs = Map(elem \ "item" map(extract_name_value) : _*)
+  def apply(node: scala.xml.Node, default: Option[BrowsCapItem] = None) = {
+    val name = node.attribute("name").get.head.text
+    val attrs = XmlUtils.extract_items(node)
     new BrowsCapItem(name, attrs, default)
   }
 }
