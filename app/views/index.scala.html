@@ -1,11 +1,18 @@
 @(message: String)
 
-@main("BrowsCap") {
+@main("Home") {
     
 <form action="browscap" method="get">
-   <label for="ua">User Agent String</label><br/>
-   <input type="text" name="ua" />
-  <input type="submit" value="Submit" />
+  <div class="row">
+  <div class="span16">
+    <h3>Type in the User Agent String</h3>
+  </div>
+
+  <div class="span16">
+    <input type="text" id="ua" name="ua" class="span12" />
+    <input type="submit" value="Submit" />
+  </div>
+  </div>
 </form>
     
 }

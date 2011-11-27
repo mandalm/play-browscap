@@ -1,21 +1,42 @@
 @(item: BrowsCapItem)
 
-@main("BrowsCap") {
+@main(item.name) {
+
+  <div class="row">
+
+  @if(item.attr("MasterParent").equals("false")) {
+  <div class="span16">
+    <h2>Matching Pattern</h2>
+    <p>@item.attr("Pattern")</p>
+  </div>
+  }
     
+  <div class="span5">
+    <h3>General Information</h3>
     <dl>
       <dt>Name</dt><dd>@item.name</dd>
       <dt>Comments</dt><dd>@item.attr("Comments")</dd>
-      <dt>Pattern</dt><dd>@item.attr("Pattern")</dd>
       <dt>Browser</dt><dd>@item.attr("Browser")</dd>
       <dt>Version</dt><dd>@item.attr("Version")</dd>
       <dt>MajorVer</dt><dd>@item.attr("MajorVer")</dd>
       <dt>MinorVer</dt><dd>@item.attr("MinorVer")</dd>
       <dt>Platform</dt><dd>@item.attr("Platform")</dd>
-      <dt>Alpha</dt><dd>@item.attr("Alpha")</dd>
-      <dt>Beta</dt><dd>@item.attr("Beta")</dd>
-      <dt>Win16</dt><dd>@item.attr("Win16")</dd>
-      <dt>Win32</dt><dd>@item.attr("Win32")</dd>
-      <dt>Win64</dt><dd>@item.attr("Win64")</dd>
+    </dl>
+  </div>
+
+  <div class="span5">
+    <h3>Type</h3>
+    <dl>
+      <dt>isBanned</dt><dd>@item.attr("isBanned")</dd>
+      <dt>isMobileDevice</dt><dd>@item.attr("isMobileDevice")</dd>
+      <dt>IsSyndicationReder</dt><dd>@item.attr("isSyndicationReader")</dd>
+      <dt>Crawler</dt><dd>@item.attr("Crawler")</dd>
+    </dl>
+  </div>
+
+  <div class="span5">
+    <h3>Features</h3>
+    <dl>
       <dt>Frames</dt><dd>@item.attr("Frames")</dd>
       <dt>IFrames</dt><dd>@item.attr("IFrames")</dd>
       <dt>Tables</dt><dd>@item.attr("Tables")</dd>
@@ -25,17 +46,37 @@
       <dt>VBScript</dt><dd>@item.attr("VBScript")</dd>
       <dt>JavaApplets</dt><dd>@item.attr("JavaApplets")</dd>
       <dt>ActiveXControls</dt><dd>@item.attr("ActiveXControls")</dd>
-      <dt>isBanned</dt><dd>@item.attr("isBanned")</dd>
-      <dt>isMobileDevice</dt><dd>@item.attr("isMobileDevice")</dd>
-      <dt>IsSyndicationReder</dt><dd>@item.attr("isSyndicationReader")</dd>
-      <dt>Crawler</dt><dd>@item.attr("Crawler")</dd>
       <dt>CssVersion</dt><dd>@item.attr("CssVersion")</dd>
       <dt>AolVersion</dt><dd>@item.attr("AolVersion")</dd>
-      <dt>MasterParent</dt><dd>@item.attr("MasterParent")</dd>
+    </dl>
+  </div>
+  </div>
+
+  <hr/>
+
+  <div class="row">
+  <div class="span5">
+    <h3>Internal</h3>
+    <dl>
       <dt>SortOrder</dt><dd>@item.attr("SortOrder")</dd>
       <dt>InternalID</dt><dd>@item.attr("InternalID")</dd>
+      <dt>MasterParent</dt><dd>@item.attr("MasterParent")</dd>
       @if(item.hasAttr("Parent")) {
-      <dt>Parent</dt><dd>@item.attr("Parent")</dd>
+      <dt>Parent</dt><dd><a href="@routes.Application.masterparent(item.attr("Parent"))">@item.attr("Parent")</a></dd>
       }
     </dl>
+  </div>
+
+  <div class="span5">
+    <h3>Misc Version</h3>
+    <dl>
+      <dt>Alpha</dt><dd>@item.attr("Alpha")</dd>
+      <dt>Beta</dt><dd>@item.attr("Beta")</dd>
+      <dt>Win16</dt><dd>@item.attr("Win16")</dd>
+      <dt>Win32</dt><dd>@item.attr("Win32")</dd>
+      <dt>Win64</dt><dd>@item.attr("Win64")</dd>
+    </dl>
+  </div>
+
+  </div>
 }
