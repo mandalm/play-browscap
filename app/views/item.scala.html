@@ -1,0 +1,41 @@
+@(item: BrowsCapItem)
+
+@main("BrowsCap") {
+    
+    <dl>
+      <dt>Name</dt><dd>@item.name</dd>
+      <dt>Comments</dt><dd>@item.attr("Comments")</dd>
+      <dt>Pattern</dt><dd>@item.attr("Pattern")</dd>
+      <dt>Browser</dt><dd>@item.attr("Browser")</dd>
+      <dt>Version</dt><dd>@item.attr("Version")</dd>
+      <dt>MajorVer</dt><dd>@item.attr("MajorVer")</dd>
+      <dt>MinorVer</dt><dd>@item.attr("MinorVer")</dd>
+      <dt>Platform</dt><dd>@item.attr("Platform")</dd>
+      <dt>Alpha</dt><dd>@item.attr("Alpha")</dd>
+      <dt>Beta</dt><dd>@item.attr("Beta")</dd>
+      <dt>Win16</dt><dd>@item.attr("Win16")</dd>
+      <dt>Win32</dt><dd>@item.attr("Win32")</dd>
+      <dt>Win64</dt><dd>@item.attr("Win64")</dd>
+      <dt>Frames</dt><dd>@item.attr("Frames")</dd>
+      <dt>IFrames</dt><dd>@item.attr("IFrames")</dd>
+      <dt>Tables</dt><dd>@item.attr("Tables")</dd>
+      <dt>Cookies</dt><dd>@item.attr("Cookies")</dd>
+      <dt>BackgroundSounds</dt><dd>@item.attr("BackgroundSounds")</dd>
+      <dt>JavaScript</dt><dd>@item.attr("JavaScript")</dd>
+      <dt>VBScript</dt><dd>@item.attr("VBScript")</dd>
+      <dt>JavaApplets</dt><dd>@item.attr("JavaApplets")</dd>
+      <dt>ActiveXControls</dt><dd>@item.attr("ActiveXControls")</dd>
+      <dt>isBanned</dt><dd>@item.attr("isBanned")</dd>
+      <dt>isMobileDevice</dt><dd>@item.attr("isMobileDevice")</dd>
+      <dt>IsSyndicationReder</dt><dd>@item.attr("isSyndicationReader")</dd>
+      <dt>Crawler</dt><dd>@item.attr("Crawler")</dd>
+      <dt>CssVersion</dt><dd>@item.attr("CssVersion")</dd>
+      <dt>AolVersion</dt><dd>@item.attr("AolVersion")</dd>
+      <dt>MasterParent</dt><dd>@item.attr("MasterParent")</dd>
+      <dt>SortOrder</dt><dd>@item.attr("SortOrder")</dd>
+      <dt>InternalID</dt><dd>@item.attr("InternalID")</dd>
+      @if(item.hasAttr("Parent")) {
+      <dt>Parent</dt><dd>@item.attr("Parent")</dd>
+      }
+    </dl>
+}

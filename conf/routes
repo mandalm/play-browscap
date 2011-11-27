@@ -6,5 +6,8 @@
 GET     /                           controllers.Application.index()
 GET     /browscap                   controllers.Application.browscap()
 
+GET     /browscapitem/:id           controllers.Application.browscapitem(id: Int)
+GET     /masterparent/:name         controllers.Application.masterparent(name: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
