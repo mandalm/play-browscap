@@ -10,7 +10,7 @@ object Application extends Controller {
   val browsCap = BrowsCap()
   
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.index(browsCap))
   }
 
   def browscap() = Action { request =>
@@ -24,14 +24,14 @@ object Application extends Controller {
   def browscapitem(id: Int) = Action {
     browsCap.getByInternalID(id) match {
       case None => NotFound
-      case Some(x) => Ok(views.html.item(x))
+      case Some(x) => Ok(views.html.item(x, browsCap))
     }
   }
 
   def masterparent(name: String) = Action {
     browsCap.getMasterParentByName(java.net.URLDecoder.decode(name)) match {
       case None => NotFound
-      case Some(x) => Ok(views.html.item(x))
+      case Some(x) => Ok(views.html.item(x, browsCap))
     }
   }
 }
