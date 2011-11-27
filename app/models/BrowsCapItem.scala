@@ -23,6 +23,13 @@ class BrowsCapItem(val name: String, val attrs: Map[String, String], val default
       case None => false
     }
   }
+
+  lazy val pattern = attr("Pattern").
+                       replace("(", "\\(").
+                       replace(")", "\\)").
+                       replace("?", "(.?)").
+                       replace("*", "(.*)").
+                       r.pattern
 }
 
 /** Builds a BrowsCapItem object given a XML node

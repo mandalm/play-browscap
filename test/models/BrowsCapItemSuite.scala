@@ -55,6 +55,15 @@ class BrowseCapItemSuite extends FunSuite with ShouldMatchers with OneInstancePe
                      <item name="InternalID" value="4163" />
                    </browscapitem>
 
+  val askPatternItemXml = <browscapitem name="Ask">
+                            <item name="Parent" value="Ask" />
+                            <item name="Pattern" value="Mozilla/?.0 (compatible; Ask Jeeves/Teoma*)" />
+                            <item name="Browser" value="Teoma" />
+                            <item name="MasterParent" value="false" />
+                            <item name="SortOrder" value="100" />
+                            <item name="InternalID" value="57" />
+                          </browscapitem>
+
   test("browscapitem has name") {
     val item = BrowsCapItem(defaultItemXml)
     item.name should not be (None)
@@ -86,5 +95,13 @@ class BrowseCapItemSuite extends FunSuite with ShouldMatchers with OneInstancePe
 
     default.attr("Version") should be ("0")
     ask.attr("Version") should be ("0")
+  }
+
+  test("browscapitem pattern") {
+    val askPatternItem = BrowsCapItem(askPatternItemXml)
+    val pattern = askPatternItem.pattern
+    pattern.matcher("Mozilla/1.0 (compatible; Ask Jeeves/Teoma)").matches should be (true)
+    pattern.matcher("Mozilla/11.0 (compatible; Ask Jeeves/Teoma)").matches should be (false)
+    pattern.matcher("Mozilla/4.0 (compatible; Ask Jeeves/Teomaamoet)").matches should be (true)
   }
 }
