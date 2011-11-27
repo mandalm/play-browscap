@@ -29,7 +29,7 @@ object Application extends Controller {
   }
 
   def masterparent(name: String) = Action {
-    browsCap.getMasterParentByName(name) match {
+    browsCap.getMasterParentByName(java.net.URLDecoder.decode(name)) match {
       case None => NotFound
       case Some(x) => Ok(views.html.item(x))
     }
