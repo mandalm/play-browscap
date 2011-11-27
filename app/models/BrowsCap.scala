@@ -53,6 +53,9 @@ class BrowsCap(val input: scala.xml.Elem) {
 
   val items = input \ "browsercapitems" \ "browscapitem" map(convert) map(attachParent) sortWith(lt)
 
+  /** Return first item with matching pattern
+    *
+    */
   def firstMatch(ua: String): Option[BrowsCapItem] = {
     for (item <- items) {
       if (item.matches(ua)) {
@@ -64,6 +67,21 @@ class BrowsCap(val input: scala.xml.Elem) {
 
   def matches(ua: String): Option[BrowsCapItem] = {
     firstMatch(ua)
+  }
+
+  /** Return first item with matching InternalID
+    */
+  def getByInternalID(id: Int): Option[BrowsCapItem] = {
+    for (item <- items) {
+      if (item.attr("InternalID").toInt == id) return Some(item)
+    }
+    None
+  }
+
+  /** Return an master parent item with matching name
+    */
+  def getMasterParentByName(name: String): Option[BrowsCapItem] = {
+     parents.get(name)
   }
 }
 

@@ -133,6 +133,23 @@ class BrowseCapSuite extends FunSuite with ShouldMatchers with OneInstancePerTes
     m.get.attr("isBanned") should be ("false") // default node
   }
 
+  test("browscapitem look up by internal id") {
+    var m = sampleBrowsCap.getByInternalID(57)
+    m should not be (None)
+    m.get.name should be ("Ask")
+
+    m = sampleBrowsCap.getByInternalID(7294)
+    m should not be (None)
+    m.get.name should be ("DefaultProperties")
+  }
+
+  test("browscapitem look up by master parent name") {
+    var m = sampleBrowsCap.getMasterParentByName("Ask")
+    m should not be (None)
+    m.get.name should be ("Ask")
+    m.get.attr("InternalID") should be ("4163")
+  }
+
   test("browscap default xml") {
     val bc = BrowsCap()
     val default = bc.defaultProperties.get
