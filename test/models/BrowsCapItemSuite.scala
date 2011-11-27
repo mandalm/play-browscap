@@ -99,9 +99,8 @@ class BrowseCapItemSuite extends FunSuite with ShouldMatchers with OneInstancePe
 
   test("browscapitem pattern") {
     val askPatternItem = BrowsCapItem(askPatternItemXml)
-    val pattern = askPatternItem.pattern
-    pattern.matcher("Mozilla/1.0 (compatible; Ask Jeeves/Teoma)").matches should be (true)
-    pattern.matcher("Mozilla/11.0 (compatible; Ask Jeeves/Teoma)").matches should be (false)
-    pattern.matcher("Mozilla/4.0 (compatible; Ask Jeeves/Teomaamoet)").matches should be (true)
+    askPatternItem.matches("Mozilla/1.0 (compatible; Ask Jeeves/Teoma)") should be (true)
+    askPatternItem.matches("Mozilla/11.0 (compatible; Ask Jeeves/Teoma)") should be (false)
+    askPatternItem.matches("Mozilla/4.0 (compatible; Ask Jeeves/Teomaamoet)") should be (true)
   }
 }

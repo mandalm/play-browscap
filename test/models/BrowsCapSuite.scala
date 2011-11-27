@@ -98,4 +98,28 @@ class BrowseCapSuite extends FunSuite with ShouldMatchers with OneInstancePerTes
     default.children.length should be (1)
     default.children(0).name should be ("Ask")
   }
+
+  test("browscap default xml") {
+    val bc = BrowsCap()
+    val default = bc.defaultProperties.get
+  }
+
+  test("browscap firstMatch") {
+    val bc = BrowsCap()
+    var m = bc.firstMatch("Mozilla/1.0 (compatible; Ask Jeeves/Teoma)")
+    m should not be (None)
+    m.get.name should be ("Ask")
+
+    m = bc.firstMatch("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+    m should not be (None)
+    m.get.name should be ("Google")
+
+    m = bc.firstMatch("Googlebot/2.1 (+http://www.googlebot.com/bot.html)")
+    m should not be (None)
+    m.get.name should be ("Google")
+
+    m = bc.firstMatch("Googlebot/2.1 (+http://www.google.com/bot.html)")
+    m should not be (None)
+    m.get.name should be ("Google")
+  }
 }

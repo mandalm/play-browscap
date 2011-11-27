@@ -34,6 +34,19 @@ class BrowsCap(val input: scala.xml.Elem) {
   }
 
   val items = input \ "browsercapitems" \ "browscapitem" map(convert) map(attachParent)
+
+  def firstMatch(ua: String): Option[BrowsCapItem] = {
+    for (item <- items) {
+      if (item.matches(ua)) {
+        return Some(item)
+      }
+    }
+    None
+  }
+
+  def matches(ua: String): Option[BrowsCapItem] = {
+    firstMatch(ua)
+  }
 }
 
 class GjkBrowsCap(override val input : scala.xml.Elem) extends BrowsCap(input) with GjkVersion {
@@ -41,5 +54,6 @@ class GjkBrowsCap(override val input : scala.xml.Elem) extends BrowsCap(input) w
 }
 
 object BrowsCap {
+  def apply(): BrowsCap = apply(xml.XML.load("app/resources/browscap.xml"))
   def apply(xmlInput: scala.xml.Elem) = new GjkBrowsCap(xmlInput)
 }

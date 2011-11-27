@@ -30,6 +30,10 @@ class BrowsCapItem(val name: String, val attrs: Map[String, String], val default
                        replace("?", "(.?)").
                        replace("*", "(.*)").
                        r.pattern
+
+  def matches(ua: String): Boolean = {
+    pattern.matcher(ua).matches
+  }
 }
 
 /** Builds a BrowsCapItem object given a XML node
