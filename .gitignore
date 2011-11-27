@@ -4,3 +4,4 @@ project/target
 target
 tmp
 *.swp
+app/resources/browscap.xml
