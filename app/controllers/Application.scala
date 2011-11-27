@@ -17,7 +17,7 @@ object Application extends Controller {
     val ua = request.queryString.get("ua").flatMap(_.headOption)
     ua match {
       case None => BadRequest()
-      case Some(x) => Ok("UA is: " + x)
+      case Some(x) => Redirect(routes.Application.browscapitem(browsCap.firstMatch(x).get.attr("InternalID").toInt))
     }
   }
 
