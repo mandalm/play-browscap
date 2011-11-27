@@ -4,6 +4,8 @@ import java.util.NoSuchElementException
 
 class BrowsCapItem(val name: String, val attrs: Map[String, String], val default: Option[BrowsCapItem] = None) {
 
+  var children: List[BrowsCapItem] = List()
+
   /** Returns attribute value in attrs given attribute name.
     *
     * If the attribute is not defined in this instance's attrs, use default's attrs recursively
@@ -12,6 +14,13 @@ class BrowsCapItem(val name: String, val attrs: Map[String, String], val default
     attrs.get(name) match {
       case Some(x) => x
       case None => if (default.isDefined) default.get.attr(name) else throw new NoSuchElementException
+    }
+  }
+
+  def hasAttr(name: String): Boolean = {
+    attrs.get(name) match {
+      case Some(x) => true
+      case None => false
     }
   }
 }

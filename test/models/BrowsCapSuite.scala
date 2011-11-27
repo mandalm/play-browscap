@@ -79,8 +79,8 @@ class BrowseCapSuite extends FunSuite with ShouldMatchers with OneInstancePerTes
     sampleBrowsCap.items.size should be (2)
   }
 
-  test("brwoscapitem default handling") {
-    val default = sampleBrowsCap.items(0)
+  test("browscapitem default handling") {
+    val default = sampleBrowsCap.defaultProperties.get
     val ask = sampleBrowsCap.items(1)
 
     default.attr("Browser") should be ("DefaultProperties")
@@ -91,5 +91,11 @@ class BrowseCapSuite extends FunSuite with ShouldMatchers with OneInstancePerTes
 
     default.attr("Version") should be ("0")
     ask.attr("Version") should be ("0")
+  }
+
+  test("browscapitem children") {
+    val default = sampleBrowsCap.defaultProperties.get
+    default.children.length should be (1)
+    default.children(0).name should be ("Ask")
   }
 }
