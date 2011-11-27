@@ -2,18 +2,18 @@ package models
 
 import java.util.NoSuchElementException
 
-class BrowsCapItem(val name: String, val attrs: Map[String, String], val default: Option[BrowsCapItem] = None) {
+class BrowsCapItem(val name: String, val attrs: Map[String, String], val parent: Option[BrowsCapItem] = None) {
 
   var children: List[BrowsCapItem] = List()
 
   /** Returns attribute value in attrs given attribute name.
     *
-    * If the attribute is not defined in this instance's attrs, use default's attrs recursively
+    * If the attribute is not defined in this instance's attrs, use parent's attrs recursively
     */
   def attr(name: String): String = {
     attrs.get(name) match {
       case Some(x) => x
-      case None => if (default.isDefined) default.get.attr(name) else throw new NoSuchElementException
+      case None => if (parent.isDefined) parent.get.attr(name) else throw new NoSuchElementException
     }
   }
 

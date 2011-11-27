@@ -61,6 +61,14 @@ class BrowseCapSuite extends FunSuite with ShouldMatchers with OneInstancePerTes
                                 <item name="SortOrder" value="100" />
                                 <item name="InternalID" value="4163" />
                               </browscapitem>
+                              <browscapitem name="Ask">
+                                <item name="Parent" value="Ask" />
+                                <item name="Pattern" value="Mozilla/?.0 (compatible; Ask Jeeves/Teoma*)" />
+                                <item name="Browser" value="Teoma" />
+                                <item name="MasterParent" value="false" />
+                                <item name="SortOrder" value="100" />
+                                <item name="InternalID" value="57" />
+                              </browscapitem>
                             </browsercapitems>
                           </browsercaps>
 
@@ -76,27 +84,53 @@ class BrowseCapSuite extends FunSuite with ShouldMatchers with OneInstancePerTes
   }
 
   test("browscap has items") {
-    sampleBrowsCap.items.size should be (2)
+    sampleBrowsCap.items.size should be (3)
   }
 
   test("browscapitem default handling") {
     val default = sampleBrowsCap.defaultProperties.get
     val ask = sampleBrowsCap.items(1)
+    val teoma = sampleBrowsCap.items(2)
 
     default.attr("Browser") should be ("DefaultProperties")
     ask.attr("Browser") should be ("Ask")
+    teoma.attr("Browser") should be ("Teoma")
 
     default.attr("SortOrder") should be ("1")
     ask.attr("SortOrder") should be ("100")
+    teoma.attr("SortOrder") should be ("100")
 
     default.attr("Version") should be ("0")
     ask.attr("Version") should be ("0")
+    teoma.attr("Version") should be ("0")
   }
 
   test("browscapitem children") {
     val default = sampleBrowsCap.defaultProperties.get
     default.children.length should be (1)
     default.children(0).name should be ("Ask")
+  }
+
+  test("browscap parent") {
+    val m = sampleBrowsCap.firstMatch("Mozilla/1.0 (compatible; Ask Jeeves/Teoma)")
+    m should not be (None)
+    m.get.name should be ("Ask")
+
+    m.get.parent should not be (None)
+    val parent = m.get.parent.get
+    parent.name should be ("Ask")
+
+    parent.parent should not be (None)
+    val grandParent = parent.parent.get
+    grandParent.name should be ("DefaultProperties")
+  }
+
+  test("browscap parent attr lookup") {
+    val m = sampleBrowsCap.firstMatch("Mozilla/1.0 (compatible; Ask Jeeves/Teoma)")
+
+    m.get.attr("InternalID") should be ("57")  // target node
+    m.get.attr("Crawler") should be ("true")   // parent node
+    m.get.attr("isBanned") should be ("false") // default node
   }
 
   test("browscap default xml") {
